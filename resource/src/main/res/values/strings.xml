@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">ITBookStore</string>
+    <string name="search">Search</string>
+    <string name="detail">Detail</string>
+    <string name="close">닫기</string>
+    <string name="placeholder">Search</string>
+    <string name="no_images">no Images</string>
+    <string name="no_book_images">no book Images</string>
+</resources>

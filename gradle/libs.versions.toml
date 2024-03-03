@@ -1,0 +1,129 @@
+[versions]
+kotlin = "1.9.10"
+kotlin-coroutines = "1.7.3"
+retrofit = "2.9.0"
+okhttp = "5.0.0-alpha.11"
+okhttp-logging = "4.10.0"
+compose = "1.6.2"
+compose-compiler = "1.5.3"
+compose-material3 = "1.2.0"
+hilt = "2.48.1"
+kotlinx-collections = "0.3.6"
+agp = "8.1.4"
+
+# Android
+min-sdk = "31"
+compile-sdk = "34"
+version-name = "1.0.0"
+version-code = "1"
+org-jetbrains-kotlin-jvm = "1.9.0"
+core-ktx = "1.12.0"
+junit = "4.13.2"
+androidx-junit = "1.1.5"
+espresso-core = "3.5.1"
+
+[libraries]
+android-gradle-plugin = { module = "com.android.tools.build:gradle", version = "8.1.4" }
+
+# Kotlin
+kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
+kotlin-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlin-coroutines" }
+kotlin-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlin-coroutines" }
+kotlin-coroutines-googleplay-temp = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version.ref = "kotlin-coroutines" }
+kotlinx-collections-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "kotlinx-collections" }
+
+# KotlinX Serialization
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.6.0" }
+kotlinx-serialization-plugin = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "kotlin" }
+
+# Retrofit
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+retrofit-converter = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
+retrofit-okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
+retrofit-logging = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp-logging" }
+
+# Compose
+compose-animation = { module = "androidx.compose.animation:animation", version.ref = "compose" }
+compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose" }
+compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "compose-material3" }
+compose-material3-windowsize = { module = "androidx.compose.material3:material3-window-size-class", version.ref = "compose-material3" }
+compose-runtime = { module = "androidx.compose.runtime:runtime", version.ref = "compose" }
+compose-runtime-livedate-temp = { module = "androidx.compose.runtime:runtime-livedata", version.ref = "compose" }
+compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
+compose-activity = { module = "androidx.activity:activity-compose", version = "1.8.2" }
+compose-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version = "2.7.0" }
+compose-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
+compose-coil = { module = "io.coil-kt:coil-compose", version = "2.4.0" }
+compose-navigation = { module = "androidx.navigation:navigation-compose", version = "2.7.7" }
+
+# Hilt
+hilt = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
+hilt-navigation = { module = "androidx.hilt:hilt-navigation-compose", version = "1.2.0" }
+hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
+hilt-gradle-plugin = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "hilt" }
+
+# AndroidX
+androidx-activity = { module = "androidx.activity:activity-ktx", version = "1.8.2" }
+appcompat-activity = { module = "androidx.appcompat:appcompat", version = "1.6.1" }
+
+# Material
+material = { module = "com.google.android.material:material", version = "1.11.0" }
+
+# Logging
+timber = { module = "com.jakewharton.timber:timber", version = "5.0.1" }
+
+# KSP
+ksp-plugin = { module = "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin", version = "1.9.10-1.0.13" }
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-junit" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
+
+[bundles]
+kotlin = [
+    "kotlin-stdlib",
+    "kotlin-coroutines-core",
+    "kotlinx-collections-immutable"
+]
+kotlin-android = [
+    "kotlin-coroutines-android",
+    "kotlin-coroutines-googleplay-temp",
+]
+retrofit = [
+    "retrofit",
+    "retrofit-converter",
+    "retrofit-okhttp",
+    "retrofit-logging"
+]
+compose = [
+    "compose-animation",
+    "compose-foundation",
+    "compose-material3",
+    "compose-material3-windowsize",
+    "compose-runtime",
+    "compose-ui",
+    "compose-activity",
+    "compose-viewmodel",
+    "compose-tooling",
+    "compose-runtime-livedate-temp",
+    "compose-coil",
+    "compose-navigation",
+]
+activity = [
+    "androidx-activity",
+    "appcompat-activity"
+]
+hilt = [
+    "hilt",
+    "hilt-navigation"
+]
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+android-library = { id = "com.android.library", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+dagger-hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+gradleWrapperUpgrade = { id = "org.gradle.wrapper-upgrade", version = "0.11.4" }
+koverPlugin = { id = "org.jetbrains.kotlinx.kover", version = "0.7.4" }
+org-jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "org-jetbrains-kotlin-jvm" }
