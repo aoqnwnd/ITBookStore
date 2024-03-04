@@ -38,11 +38,8 @@ android {
 
 dependencies {
     implementation(libs.bundles.kotlin)
-    implementation(catalog.bundle("kotlin-android"))
     implementation(libs.timber)
 
     implementation(libs.bundles.hilt)
     kapt(catalog.library("hilt-compiler"))
-
-    implementation(catalog.library("kotlinx-serialization-json"))
 }

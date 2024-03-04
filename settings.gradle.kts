@@ -20,6 +20,6 @@ include(":core:domain")
 include(":core:ui")
 include(":core:model")
 
-include(":feature:search-feature")
-include(":feature:detail-feature")
+include(":feature:list")
+include(":feature:detail")
 include(":feature:navigation")

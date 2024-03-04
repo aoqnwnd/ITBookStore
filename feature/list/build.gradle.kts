@@ -3,12 +3,14 @@ plugins {
 }
 
 android {
-    namespace = "com.itbookstore.detail"
+    namespace = "com.itbookstore.search"
 }
 
 dependencies {
-    implementation(projects.resource)
     implementation(projects.core.ui)
     implementation(projects.core.domain)
+    implementation(projects.resource)
+    implementation(projects.feature.navigation)
     implementation(projects.core.data)
+    implementation(projects.core.model)
 }

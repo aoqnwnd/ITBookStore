@@ -1,7 +1,7 @@
 package com.devkick.model
 
 data class BookList(
-    val totalPages: Int,
+    val totalBooks: Int,
     val page: Int,
     val result: List<Book>,
 ) {

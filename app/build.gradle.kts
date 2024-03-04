@@ -60,7 +60,6 @@ android {
 
 dependencies {
     implementation(libs.bundles.kotlin)
-    implementation(libs.bundles.kotlin.android)
     implementation(libs.bundles.compose)
     implementation(libs.bundles.retrofit)
     implementation(libs.bundles.activity)
@@ -71,8 +70,8 @@ dependencies {
 
     implementation(libs.timber)
 
-    implementation(projects.feature.searchFeature)
-    implementation(projects.feature.detailFeature)
+    implementation(projects.feature.list)
+    implementation(projects.feature.detail)
     implementation(projects.feature.navigation)
     implementation(projects.core.ui)
     implementation(projects.resource)

@@ -2,6 +2,7 @@ package com.devkick.image.di
 
 import com.devkick.data.repository.BookRepository
 import com.devkick.image.book.GetBookDetailUseCase
+import com.devkick.image.book.GetNewBooksUseCase
 import com.devkick.image.book.GetSearchBooksUseCase
 import dagger.Module
 import dagger.Provides
@@ -18,6 +19,14 @@ object BookUseCaseModule {
         bookRepository: BookRepository,
     ): GetSearchBooksUseCase {
         return GetSearchBooksUseCase(bookRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetNewBooksUseCase(
+        bookRepository: BookRepository,
+    ): GetNewBooksUseCase {
+        return GetNewBooksUseCase(bookRepository)
     }
 
     @Provides
