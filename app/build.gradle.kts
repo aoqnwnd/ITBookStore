@@ -70,8 +70,8 @@ dependencies {
 
     implementation(libs.timber)
 
-    implementation(projects.feature.list)
-    implementation(projects.feature.detail)
+    implementation(projects.feature.bookSearch)
+    implementation(projects.feature.bookDetail)
     implementation(projects.feature.navigation)
     implementation(projects.core.ui)
     implementation(projects.resource)
