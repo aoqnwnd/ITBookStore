@@ -11,7 +11,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.devkick.detail_feature.BookDetailScreen
-import com.devkick.search_feature.BookListScreen
+import com.devkick.search_feature.BookSearchListScreen
 
 @Composable
 fun MainNavHost(
@@ -26,7 +26,7 @@ fun MainNavHost(
             .padding(paddingValues),
     ) {
         composable(RouteScreen.List.route) {
-            BookListScreen(
+            BookSearchListScreen(
                 modifier = modifier.fillMaxSize(),
                 navigateToDetail = { id ->
                     navController.navigate(

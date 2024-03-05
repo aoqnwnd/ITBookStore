@@ -12,6 +12,7 @@ kotlinx-collections = "0.3.6"
 agp = "8.1.4"
 compose-lifecycle = "2.7.0"
 ksp = "1.9.10-1.0.13"
+orbit = "6.1.1"
 
 # Android
 min-sdk = "31"
@@ -74,6 +75,11 @@ timber = { module = "com.jakewharton.timber:timber", version = "5.0.1" }
 # KSP
 ksp-plugin = { module = "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
 
+# Orbit for MVI
+orbit-core = { module = "org.orbit-mvi:orbit-core", version.ref = "orbit" }
+orbit-viewmodel = { module = "org.orbit-mvi:orbit-viewmodel", version.ref = "orbit" }
+orbit-compose = { module = "org.orbit-mvi:orbit-compose", version.ref = "orbit" }
+
 [bundles]
 kotlin = [
     "kotlin-stdlib",
@@ -113,6 +119,11 @@ activity = [
 hilt = [
     "hilt",
     "hilt-navigation"
+]
+orbit = [
+    "orbit-core",
+    "orbit-viewmodel",
+    "orbit-compose"
 ]
 
 [plugins]

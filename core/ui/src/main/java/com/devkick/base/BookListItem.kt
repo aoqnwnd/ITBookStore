@@ -101,10 +101,11 @@ fun PreviewBookListItem() {
 @Preview
 @Composable
 fun PreviewBookListList() {
-    LazyColumn(
+    PageableLazyColumn(
         verticalArrangement = Arrangement.spacedBy(5.dp),
+        shouldStartPaginate = { /*TODO*/ },
     ) {
-        items(3) {
+        items(4) {
             PreviewBookListItem()
         }
     }

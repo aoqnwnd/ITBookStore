@@ -7,16 +7,16 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface BookService {
-    @GET("/search/{query}/{page}")
+    @GET("search/{query}/{page}")
     suspend fun getSearchBooks(
         @Query("query") query: String,
         @Query("page") page: Int,
     ): BookListResponse
 
-    @GET("/new")
+    @GET("new")
     suspend fun getNewBooks(): BookListResponse
 
-    @GET("/books/{isbn13}")
+    @GET("books/{isbn13}")
     suspend fun getBookDetail(
         @Path("isbn13") isbn13: String,
     ): BookDetailResponse
