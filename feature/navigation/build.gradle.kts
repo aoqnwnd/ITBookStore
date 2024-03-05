@@ -6,7 +6,3 @@ plugins {
 android {
     namespace = "com.itbookstore.navigation"
 }
-
-dependencies {
-    implementation(projects.resource)
-}

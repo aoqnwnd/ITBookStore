@@ -8,6 +8,5 @@ android {
 
 dependencies {
     implementation(projects.resource)
-    implementation(projects.feature.navigation)
-    implementation(projects.core.data)
+    implementation(projects.core.model)
 }
