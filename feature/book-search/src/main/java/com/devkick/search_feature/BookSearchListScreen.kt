@@ -15,7 +15,6 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,14 +24,12 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.devkick.base.BookListItem
 import com.devkick.base.PageableLazyColumn
-import com.devkick.base.PreviewBookListItem
 import com.devkick.base.TextStyleEnum
 import com.devkick.base.typography
 import com.itbookstore.resources.R
-import kotlinx.coroutines.launch
 import org.orbitmvi.orbit.compose.collectSideEffect
-import kotlin.reflect.KFunction1
 
 @Composable
 fun BookSearchListScreen(
@@ -40,25 +37,24 @@ fun BookSearchListScreen(
     viewModel: BookSearchListViewModel = hiltViewModel(),
     navigateToDetail: (String) -> Unit,
 ) {
-    val searchQuery by viewModel.searchQuery.collectAsStateWithLifecycle()
     val searchUiState by viewModel.container.stateFlow.collectAsStateWithLifecycle()
-val context = LocalContext.current
+    val searchQuery by viewModel.searchQuery.collectAsStateWithLifecycle()
+    val context = LocalContext.current
+
     viewModel.collectSideEffect {
         when (it) {
-            BookSearchSideEffect.OnCreate -> TODO()
+            is BookSearchSideEffect.NavigateToDetail -> navigateToDetail(it.isbn13)
             is BookSearchSideEffect.SendToToast -> {
                 Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
             }
-            is BookSearchSideEffect.NavigateToDetail -> TODO()
         }
     }
 
     UI(
         modifier = modifier,
         searchUiState = searchUiState,
-        navigateToDetail = navigateToDetail,
         searchQuery = searchQuery,
-        onSearchQueryChanged = viewModel::onSearchQueryChanged,
+        queryChange = viewModel::onSearchQueryChanged
     )
 }
 
@@ -66,9 +62,8 @@ val context = LocalContext.current
 fun UI(
     modifier: Modifier = Modifier,
     searchUiState: BookSearchState,
-    navigateToDetail: (String) -> Unit,
     searchQuery: String,
-    onSearchQueryChanged: KFunction1<String, Unit>,
+    queryChange: (String) -> Unit,
 ) {
     Column(
         modifier = modifier
@@ -87,7 +82,7 @@ fun UI(
                     .weight(1f),
                 value = searchQuery,
                 onValueChange = { changedText ->
-                    onSearchQueryChanged(changedText)
+                    queryChange(changedText)
                 },
                 decorationBox = { innerTextField ->
                     Box(modifier = modifier) {
@@ -107,7 +102,7 @@ fun UI(
                 textStyle = typography(TextStyleEnum.Body),
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
                 keyboardActions = KeyboardActions(onSearch = {
-                    if (searchQuery.isNotBlank()) onSearchQueryChanged(searchQuery)
+                    if (searchQuery.isNotBlank()) queryChange(searchQuery)
                 })
             )
         }
@@ -124,13 +119,20 @@ fun UI(
             is BookSearchState.Success -> {
                 PageableLazyColumn(
                     verticalArrangement = Arrangement.spacedBy(5.dp),
-                    shouldStartPaginate = { /*TODO*/ },
+                    shouldStartPaginate = {
+
+                    },
                 ) {
-                    items(searchUiState.books.totalBooks) {
-                        PreviewBookListItem()
+                    items(searchUiState.books.result) {
+                        BookListItem(
+                            book = it,
+                            navigateToDetail = {}
+                        )
                     }
                 }
             }
+
+            BookSearchState.Empty ->Text(text = "empty List")
         }
 
     }

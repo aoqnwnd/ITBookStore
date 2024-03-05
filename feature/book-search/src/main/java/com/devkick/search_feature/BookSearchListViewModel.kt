@@ -9,8 +9,11 @@ import com.devkick.model.BookList
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
@@ -30,16 +33,33 @@ class BookSearchListViewModel @Inject constructor(
 ) : ContainerHost<BookSearchState, BookSearchSideEffect>, ViewModel() {
     override val container = container<BookSearchState, BookSearchSideEffect>(
         BookSearchState.Loading
-    )
-
-    init {
+    ) {
         fetchData()
     }
 
+    val searchQuery = savedStateHandle.getStateFlow(key = SEARCH_QUERY, initialValue = "")
+
     private fun fetchData() {
         intent {
+            searchQuery
+                .debounce(1_000)
+                .flatMapLatest { query ->
+                    if (query.length < SEARCH_QUERY_MIN_LENGTH) {
+                        flowOf(BookSearchState.Empty)
+                    } else {
+                        getSearchBooksUseCase(query, page)
+                            .map<BookList, BookSearchState>(BookSearchState::Success)
+                            .onStart { emit(BookSearchState.Loading) }
+                            .catch { emit(BookSearchState.Error(exception = it)) }
+                    }
+                }.stateIn(
+                    scope = viewModelScope,
+                    started = SharingStarted.WhileSubscribed(5_000),
+                    initialValue = BookSearchState.Loading
+                )
+
             viewModelScope.launch {
-                val result = getNewBooksUseCase()
+                getNewBooksUseCase()
                     .map<BookList, BookSearchState>(BookSearchState::Success)
                     .onStart { emit(BookSearchState.Loading) }
                     .catch { emit(BookSearchState.Error(exception = it)) }
@@ -47,20 +67,18 @@ class BookSearchListViewModel @Inject constructor(
                         scope = viewModelScope,
                         started = SharingStarted.WhileSubscribed(5_000),
                         initialValue = BookSearchState.Loading
-                    ).value
-
-                reduce {
-                    state
-                    result
-                }
-                postSideEffect(sideEffect = BookSearchSideEffect.SendToToast("테스트"))
+                    )
+                    .collect {
+                        reduce { it }
+                    }
             }
+
+            postSideEffect(sideEffect = BookSearchSideEffect.SendToToast("테스트"))
         }
+
     }
 
     private var page = 0
-
-    val searchQuery = savedStateHandle.getStateFlow(key = SEARCH_QUERY, initialValue = "")
 
     private val newBooksList = MutableStateFlow<BookList?>(null)
 
