@@ -7,4 +7,6 @@ abstract class ComposeViewModel<UiState, UiEvent> : ViewModel() {
     abstract fun uiState(): UiState
 
     abstract fun onEvent(event: UiEvent)
+
+    abstract suspend fun onSuspendEvent(event: UiEvent)
 }

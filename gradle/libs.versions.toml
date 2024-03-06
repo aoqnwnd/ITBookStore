@@ -1,11 +1,11 @@
 [versions]
-kotlin = "1.9.10"
+kotlin = "1.9.22"
 kotlin-coroutines = "1.8.0"
 retrofit = "2.9.0"
 okhttp = "5.0.0-alpha.11"
 okhttp-logging = "4.12.0"
 compose = "1.6.2"
-compose-compiler = "1.5.3"
+compose-compiler = "1.5.10"
 compose-material3 = "1.2.0"
 hilt = "2.50"
 kotlinx-collections = "0.3.7"

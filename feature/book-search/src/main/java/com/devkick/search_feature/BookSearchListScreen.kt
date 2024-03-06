@@ -48,7 +48,7 @@ import com.devkick.base.PageableLazyVerticalGrid
 import com.devkick.base.TextStyleEnum
 import com.devkick.base.typography
 import com.itbookstore.resource.R
-import kotlinx.coroutines.delay
+import kotlin.reflect.KSuspendFunction1
 
 @Composable
 fun BookSearchListScreen(
@@ -60,6 +60,7 @@ fun BookSearchListScreen(
         modifier = modifier,
         state = viewModel.uiState(),
         event = viewModel::onEvent,
+        suspendEvent = viewModel::onSuspendEvent,
         navigateToDetail = navigateToDetail
     )
 }
@@ -70,15 +71,16 @@ fun UI(
     modifier: Modifier = Modifier,
     state: BookSearchListUiState,
     event: (BookSearchEvent) -> Unit,
+    suspendEvent: KSuspendFunction1<BookSearchEvent, Unit>,
     navigateToDetail: (String) -> Unit,
 ) {
     val pullToRefreshState = rememberPullToRefreshState()
 
-    LaunchedEffect(pullToRefreshState.isRefreshing) {
-        if (pullToRefreshState.isRefreshing) {
+    if (pullToRefreshState.isRefreshing) {
+        LaunchedEffect(true) {
             // 서버 호출 실행
-            event(BookSearchEvent.RefreshList)
-            delay(500)
+            suspendEvent(BookSearchEvent.RefreshList)
+
             pullToRefreshState.endRefresh()
         }
     }

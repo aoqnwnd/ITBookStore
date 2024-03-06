@@ -74,12 +74,18 @@ class BookSearchListViewModel @Inject constructor(
         )
     }
 
+    override suspend fun onSuspendEvent(event: BookSearchEvent) {
+        if (event is BookSearchEvent.RefreshList) {
+            refreshList()
+        }
+    }
+
     override fun onEvent(event: BookSearchEvent) {
         when (event) {
             BookSearchEvent.ClickListTypeChange -> changeListType()
             BookSearchEvent.LoadNextPage -> loadNextPage()
             is BookSearchEvent.QueryChange -> onSearchQueryChanged(event.query)
-            BookSearchEvent.RefreshList -> refreshList()
+            else -> {}
         }
     }
 
@@ -102,18 +108,16 @@ class BookSearchListViewModel @Inject constructor(
         }
     }
 
-    private fun getNewBooks() {
-        viewModelScope.launch {
-            getNewBooksUseCase()
-                .onStart { isLoading.value = true }
-                .catch { throwable ->
-                    errorMessage.value = throwable.message.toString()
-                }
-                .collect {
-                    isLoading.value = false
-                    newBookList.addAll(it.result)
-                }
-        }
+    private suspend fun getNewBooks() {
+        getNewBooksUseCase()
+            .onStart { isLoading.value = true }
+            .catch { throwable ->
+                errorMessage.value = throwable.message.toString()
+            }
+            .collect {
+                isLoading.value = false
+                newBookList.addAll(it.result)
+            }
     }
 
     private fun searchBooks() {
@@ -139,12 +143,12 @@ class BookSearchListViewModel @Inject constructor(
         }
     }
 
-    private fun refreshList() {
+    private suspend fun refreshList() {
         newBookList.clear()
         bookList.clear()
 
         if (queryText.value.isNotEmpty())
-            onSearchQueryChanged(queryText.value)
+            channel.send(queryText.value)
         else
             getNewBooks()
     }
