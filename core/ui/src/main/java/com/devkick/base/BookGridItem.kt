@@ -20,6 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import com.devkick.model.BookList
+import java.util.UUID
 
 @Composable
 fun BookGridItem(
@@ -78,7 +79,8 @@ fun PreviewBookGridItem() {
             isbn13 = "p1sqw/1r1mf1",
             price = "32$",
             image = "https://contents.kyobobook.co.kr/sih/fit-in/280x0/pdt/9788966262472.jpg",
-            url = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fproduct.kyobobook.co.kr%2Fdetail%2FS000001033082&psig=AOvVaw1yRpaLAyDfgEhErkeMgTug&ust=1709694306946000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCPi_x-CR3IQDFQAAAAAdAAAAABAE"
+            url = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fproduct.kyobobook.co.kr%2Fdetail%2FS000001033082&psig=AOvVaw1yRpaLAyDfgEhErkeMgTug&ust=1709694306946000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCPi_x-CR3IQDFQAAAAAdAAAAABAE",
+            uuId = UUID.randomUUID()
         ),
         clickItem = {}
     )

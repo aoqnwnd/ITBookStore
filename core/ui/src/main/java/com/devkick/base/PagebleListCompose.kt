@@ -1,5 +1,6 @@
 package com.devkick.base
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
@@ -11,6 +12,7 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import timber.log.Timber
 
 @Composable
 fun PageableLazyVerticalGrid(
@@ -26,8 +28,15 @@ fun PageableLazyVerticalGrid(
     val lazyGridListState = rememberLazyGridState()
 
     fun isStartPaginate(): Boolean {
-        return (lazyGridListState.layoutInfo.visibleItemsInfo.lastOrNull()?.index
-            ?: -9) >= (lazyGridListState.layoutInfo.totalItemsCount - 3)
+        Timber.tag("TAG")
+            .d(
+                "visibleItemsInfo: %s",
+                lazyGridListState.layoutInfo.visibleItemsInfo.lastOrNull()?.index
+            )
+        Timber.tag("TAG")
+            .d("totalItemsCount: ${lazyGridListState.layoutInfo.totalItemsCount - 3}")
+        return (lazyGridListState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ?: -9) >=
+                (lazyGridListState.layoutInfo.totalItemsCount - 3)
     }
 
     val shouldPaginate = isStartPaginate()

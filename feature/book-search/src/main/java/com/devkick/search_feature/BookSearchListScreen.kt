@@ -144,7 +144,7 @@ fun UI(
                     state.newBookList
                 else
                     state.bookList,
-                key = { it.isbn13 },
+                key = { it.uuId },
             ) {
                 Box(
                     modifier = Modifier
