@@ -78,6 +78,7 @@ fun UI(
         if (pullToRefreshState.isRefreshing) {
             // 서버 호출 실행
             event(BookSearchEvent.RefreshList)
+            delay(500)
             pullToRefreshState.endRefresh()
         }
     }
