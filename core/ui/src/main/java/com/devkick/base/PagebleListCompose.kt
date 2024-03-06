@@ -28,13 +28,6 @@ fun PageableLazyVerticalGrid(
     val lazyGridListState = rememberLazyGridState()
 
     fun isStartPaginate(): Boolean {
-        Timber.tag("TAG")
-            .d(
-                "visibleItemsInfo: %s",
-                lazyGridListState.layoutInfo.visibleItemsInfo.lastOrNull()?.index
-            )
-        Timber.tag("TAG")
-            .d("totalItemsCount: ${lazyGridListState.layoutInfo.totalItemsCount - 3}")
         return (lazyGridListState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ?: -9) >=
                 (lazyGridListState.layoutInfo.totalItemsCount - 3)
     }

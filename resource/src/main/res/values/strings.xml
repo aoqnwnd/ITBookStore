@@ -2,8 +2,23 @@
     <string name="app_name">ITBookStore</string>
     <string name="list">List</string>
     <string name="detail">Detail</string>
+    <string name="now_loading">Now Loading…</string>
     <string name="close">닫기</string>
     <string name="placeholder">Search</string>
     <string name="no_result">can\'t find the book</string>
     <string name="no_book_images">no book Images</string>
+    <string name="title">Title</string>
+    <string name="subtitle">Subtitle</string>
+    <string name="authors">Authors</string>
+    <string name="publisher">Publisher</string>
+    <string name="isbn">ISBN</string>
+    <string name="isbn10">ISBN-10</string>
+    <string name="isbn13">ISBN-13</string>
+    <string name="pages">Pages</string>
+    <string name="year">Year</string>
+    <string name="rating">Rating</string>
+    <string name="desc">Description</string>
+    <string name="price">Price</string>
+    <string name="url">URL</string>
+    <string name="pdf">PDF URL</string>
 </resources>

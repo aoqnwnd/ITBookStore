@@ -4,8 +4,10 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -26,7 +28,7 @@ import java.util.UUID
 fun BookGridItem(
     modifier: Modifier = Modifier,
     book: BookList.Book,
-    clickItem: () -> Unit
+    clickItem: () -> Unit,
 ) {
     Card(
         shape = RoundedCornerShape(10.dp),
@@ -37,15 +39,13 @@ fun BookGridItem(
             modifier = modifier
                 .padding(5.dp),
         ) {
-            Image(
-                painter = rememberAsyncImagePainter(book.image),
-                contentDescription = "listImage",
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .aspectRatio(1f)
-                    .clip(RoundedCornerShape(10.dp))
-                    .background(Color.LightGray),
-            )
+            Box {
+                BackdropBookImage(
+                    url = book.image,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                )
+            }
 
             Text(
                 text = book.title,

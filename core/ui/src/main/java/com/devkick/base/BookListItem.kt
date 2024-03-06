@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
@@ -30,7 +31,7 @@ import com.devkick.model.BookList
 fun BookListItem(
     modifier: Modifier = Modifier,
     book: BookList.Book,
-    clickItem: () -> Unit
+    clickItem: () -> Unit,
 ) {
     Card(
         shape = RoundedCornerShape(10.dp),
@@ -44,16 +45,13 @@ fun BookListItem(
                 .padding(10.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Image(
-                painter = rememberAsyncImagePainter(book.image),
-                contentDescription = "listImage",
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .aspectRatio(1f)
-                    .clip(RoundedCornerShape(10.dp))
-                    .background(Color.LightGray),
-            )
+            Box {
+                BackdropBookImage(
+                    url = book.image,
+                    modifier = Modifier
+                        .fillMaxHeight()
+                )
+            }
 
             Column(
                 modifier = Modifier

@@ -33,15 +33,5 @@ data class BookDetailResponse(
     val image: String,
     @SerializedName("url")
     val url: String,
-    @SerializedName("pdf")
-    val pdf: Pdf,
-) {
-    data class Pdf(
-        @SerializedName("Chapter 2")
-        @Expose
-        val chapter2: String,
-        @SerializedName("Chapter 5")
-        @Expose
-        val chapter5: String
-    )
-}
+    val pdf: Map<String, String>?,
+)

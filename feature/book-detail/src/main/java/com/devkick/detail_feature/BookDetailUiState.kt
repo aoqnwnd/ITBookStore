@@ -10,6 +10,6 @@ sealed interface BookDetailUiState {
     ) : BookDetailUiState
 
     data class Success(
-        val data: Book
+        val book: Book
     ) : BookDetailUiState
 }

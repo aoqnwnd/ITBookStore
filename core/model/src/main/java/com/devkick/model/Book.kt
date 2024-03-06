@@ -14,6 +14,5 @@ data class Book(
     val price: String,
     val image: String,
     val url: String,
-    val pdf2: String,
-    val pdf5: String,
+    val pdf: List<String>,
 )

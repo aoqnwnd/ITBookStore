@@ -15,25 +15,29 @@ val Pretendard = FontFamily(
 )
 
 enum class TextStyleEnum {
-    Title, Body,
+    Title, Body, HeadLine
 }
 
 @Composable
 fun typography(textStyle: TextStyleEnum): TextStyle {
     return when (textStyle) {
-
-        TextStyleEnum.Title -> {
-            TextStyle(
-                fontFamily = Pretendard,
-                fontWeight = FontWeight.Bold,
-                fontSize = 16.sp,
-            )
-        }
+        TextStyleEnum.Title -> TextStyle(
+            fontFamily = Pretendard,
+            fontWeight = FontWeight.Bold,
+            fontSize = 16.sp,
+        )
 
         TextStyleEnum.Body -> TextStyle(
             fontFamily = Pretendard,
             fontWeight = FontWeight.Normal,
             fontSize = 13.sp,
         )
+
+        TextStyleEnum.HeadLine ->
+            TextStyle(
+                fontFamily = Pretendard,
+                fontWeight = FontWeight.Bold,
+                fontSize = 20.sp,
+            )
     }
 }
