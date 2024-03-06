@@ -48,9 +48,6 @@ class BookSearchListViewModel @Inject constructor(
     private var page = 1
     private val channel = Channel<String>()
 
-    private val _navigationToDetail = MutableStateFlow("")
-    val navigationToDetail: StateFlow<String> = _navigationToDetail
-
     init {
         viewModelScope.launch {
             getNewBooksUseCase()
@@ -106,6 +103,8 @@ class BookSearchListViewModel @Inject constructor(
             if (query.isNotEmpty()) {
                 channel.send(query)
                 bookList.clear()
+            } else {
+                isEmpty.value = false
             }
         }
     }
@@ -120,10 +119,7 @@ class BookSearchListViewModel @Inject constructor(
                 .catch { throwable ->
                     errorMessage.value = throwable.message.toString()
                 }
-                .onStart {
-                    isLoading.value = true
-                    isEmpty.value = false
-                }
+                .onStart { isLoading.value = true }
                 .collect {
                     isLoading.value = false
 
