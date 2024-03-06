@@ -50,15 +50,7 @@ class BookSearchListViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            getNewBooksUseCase()
-                .onStart { isLoading.value = true }
-                .catch { throwable ->
-                    errorMessage.value = throwable.message.toString()
-                }
-                .collect {
-                    isLoading.value = false
-                    newBookList.addAll(it.result)
-                }
+            getNewBooks()
 
             channel
                 .consumeAsFlow()
@@ -87,6 +79,7 @@ class BookSearchListViewModel @Inject constructor(
             BookSearchEvent.ClickListTypeChange -> changeListType()
             BookSearchEvent.LoadNextPage -> loadNextPage()
             is BookSearchEvent.QueryChange -> onSearchQueryChanged(event.query)
+            BookSearchEvent.RefreshList -> refreshList()
         }
     }
 
@@ -106,6 +99,20 @@ class BookSearchListViewModel @Inject constructor(
             } else {
                 isEmpty.value = false
             }
+        }
+    }
+
+    private fun getNewBooks() {
+        viewModelScope.launch {
+            getNewBooksUseCase()
+                .onStart { isLoading.value = true }
+                .catch { throwable ->
+                    errorMessage.value = throwable.message.toString()
+                }
+                .collect {
+                    isLoading.value = false
+                    newBookList.addAll(it.result)
+                }
         }
     }
 
@@ -130,6 +137,16 @@ class BookSearchListViewModel @Inject constructor(
                     if (it.totalBooks == bookList.size || it.result.isEmpty()) isFinish = true
                 }
         }
+    }
+
+    private fun refreshList() {
+        newBookList.clear()
+        bookList.clear()
+
+        if (queryText.value.isNotEmpty())
+            onSearchQueryChanged(queryText.value)
+        else
+            getNewBooks()
     }
 
     private fun loadNextPage() {

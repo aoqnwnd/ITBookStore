@@ -12,7 +12,6 @@ kotlinx-collections = "0.3.7"
 agp = "8.2.2"
 compose-lifecycle = "2.7.0"
 ksp = "1.9.22-1.0.17"
-orbit = "6.1.1"
 
 # Android
 min-sdk = "31"
@@ -48,7 +47,6 @@ retrofit-logging = { module = "com.squareup.okhttp3:logging-interceptor", versio
 compose-animation = { module = "androidx.compose.animation:animation", version.ref = "compose" }
 compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose" }
 compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "compose-material3" }
-compose-material3-windowsize = { module = "androidx.compose.material3:material3-window-size-class", version.ref = "compose-material3" }
 compose-runtime = { module = "androidx.compose.runtime:runtime", version.ref = "compose" }
 compose-runtime-livedate-temp = { module = "androidx.compose.runtime:runtime-livedata", version.ref = "compose" }
 compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
@@ -79,10 +77,6 @@ timber = { module = "com.jakewharton.timber:timber", version = "5.0.1" }
 # KSP
 ksp-plugin = { module = "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
 
-# Orbit for MVI
-orbit-core = { module = "org.orbit-mvi:orbit-core", version.ref = "orbit" }
-orbit-viewmodel = { module = "org.orbit-mvi:orbit-viewmodel", version.ref = "orbit" }
-orbit-compose = { module = "org.orbit-mvi:orbit-compose", version.ref = "orbit" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-junit" }
@@ -108,7 +102,6 @@ compose = [
     "compose-animation",
     "compose-foundation",
     "compose-material3",
-    "compose-material3-windowsize",
     "compose-runtime",
     "compose-ui",
     "compose-activity",
@@ -127,11 +120,6 @@ activity = [
 hilt = [
     "hilt",
     "hilt-navigation"
-]
-orbit = [
-    "orbit-core",
-    "orbit-viewmodel",
-    "orbit-compose"
 ]
 
 [plugins]
