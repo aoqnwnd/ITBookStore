@@ -2,7 +2,6 @@ package com.devkick.detail_feature
 
 import com.devkick.model.Book
 
-
 sealed interface BookDetailUiState {
     data object Loading: BookDetailUiState
 

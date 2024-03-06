@@ -1,15 +1,15 @@
 package com.devkick.search_feature
 
+import com.devkick.base.ListViewType
+import com.devkick.common.UIState
 import com.devkick.model.BookList
 
-sealed class BookSearchState {
-    data object Loading : BookSearchState()
-    data object Empty : BookSearchState()
-    data class Success(
-        val books: BookList,
-    ) : BookSearchState()
-
-    class Error(
-        val exception: Throwable,
-    ) : BookSearchState()
-}
+data class BookSearchListUiState(
+    val queryText: String = "",
+    val bookList: List<BookList.Book> = listOf(),
+    val newBookList: List<BookList.Book> = listOf(),
+    val listViewType: ListViewType = ListViewType.List,
+    val isLoading: Boolean = true,
+    val errorMessage: String? = null,
+    val isEmpty: Boolean = false,
+) : UIState

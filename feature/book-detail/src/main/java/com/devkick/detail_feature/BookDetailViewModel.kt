@@ -19,16 +19,4 @@ class BookDetailViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     getBookDetailUseCase: GetBookDetailUseCase
 ) : ViewModel() {
-    private val bookId = savedStateHandle.get<String>("isbn13")
-
-    var detailUiState: StateFlow<BookDetailUiState> =
-        getBookDetailUseCase(bookId ?: "")
-            .map<Book, BookDetailUiState>(BookDetailUiState::Success)
-            .onStart { emit(BookDetailUiState.Loading) }
-            .catch { emit(BookDetailUiState.Fail(it.message.toString())) }
-            .stateIn(
-                scope = viewModelScope,
-                started = SharingStarted.WhileSubscribed(5_000),
-                initialValue = BookDetailUiState.Loading
-            )
 }

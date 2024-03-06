@@ -1,7 +1,7 @@
 package com.devkick.itbookstore.navigation
 
 import androidx.annotation.StringRes
-import com.itbookstore.resources.R
+import com.itbookstore.resource.R
 
 enum class RouteScreen(
     val route: String,

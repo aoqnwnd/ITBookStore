@@ -3,5 +3,5 @@ plugins {
 }
 
 android {
-    namespace = "com.itbookstore.resource"
+    namespace = "com.itbookstore.common"
 }

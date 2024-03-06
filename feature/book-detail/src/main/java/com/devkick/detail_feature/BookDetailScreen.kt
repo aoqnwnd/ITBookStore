@@ -13,10 +13,8 @@ fun BookDetailScreen(
     viewModel: BookDetailViewModel = hiltViewModel(),
     navigateBack: () -> Boolean,
 ) {
-    val detailUiState: BookDetailUiState by viewModel.detailUiState.collectAsStateWithLifecycle()
 
     UI(
-        detailUiState = detailUiState,
         modifier = modifier,
         navigateBack = navigateBack
     )
@@ -24,7 +22,6 @@ fun BookDetailScreen(
 
 @Composable
 fun UI(
-    detailUiState: BookDetailUiState,
     modifier: Modifier,
     navigateBack: () -> Boolean,
 ) {

@@ -46,34 +46,3 @@ fun PageableLazyVerticalGrid(
         content()
     }
 }
-
-@Composable
-fun PageableLazyColumn(
-    modifier: Modifier = Modifier,
-    reverseLayout: Boolean = false,
-    verticalArrangement: Arrangement.Vertical =
-        if (!reverseLayout) Arrangement.Top else Arrangement.Bottom,
-    shouldStartPaginate: () -> Unit,
-    content: LazyListScope.() -> Unit,
-) {
-    val listState = rememberLazyListState()
-
-    fun isStartPaginate(): Boolean {
-        return (listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index
-            ?: -9) >= (listState.layoutInfo.totalItemsCount - 3)
-    }
-
-    val shouldPaginate = isStartPaginate()
-
-    LaunchedEffect(shouldPaginate) {
-        if (shouldPaginate) shouldStartPaginate()
-    }
-
-    LazyColumn(
-        verticalArrangement = verticalArrangement,
-        state = listState,
-        modifier = modifier
-    ) {
-        content()
-    }
-}

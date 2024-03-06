@@ -9,8 +9,8 @@ import retrofit2.http.Query
 interface BookService {
     @GET("search/{query}/{page}")
     suspend fun getSearchBooks(
-        @Query("query") query: String,
-        @Query("page") page: Int,
+        @Path("query") query: String,
+        @Path("page") page: Int,
     ): BookListResponse
 
     @GET("new")

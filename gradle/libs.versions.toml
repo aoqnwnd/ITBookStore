@@ -1,17 +1,17 @@
 [versions]
 kotlin = "1.9.10"
-kotlin-coroutines = "1.7.3"
+kotlin-coroutines = "1.8.0"
 retrofit = "2.9.0"
 okhttp = "5.0.0-alpha.11"
 okhttp-logging = "4.12.0"
 compose = "1.6.2"
 compose-compiler = "1.5.3"
 compose-material3 = "1.2.0"
-hilt = "2.49"
-kotlinx-collections = "0.3.6"
-agp = "8.1.4"
+hilt = "2.50"
+kotlinx-collections = "0.3.7"
+agp = "8.2.2"
 compose-lifecycle = "2.7.0"
-ksp = "1.9.10-1.0.13"
+ksp = "1.9.22-1.0.17"
 orbit = "6.1.1"
 
 # Android
@@ -20,6 +20,10 @@ compile-sdk = "34"
 version-name = "1.0.0"
 version-code = "1"
 org-jetbrains-kotlin-jvm = "1.9.10"
+core-ktx = "1.10.1"
+junit = "4.13.2"
+androidx-junit = "1.1.5"
+espresso-core = "3.5.1"
 
 [libraries]
 android-gradle-plugin = { module = "com.android.tools.build:gradle", version = "8.1.4" }
@@ -79,6 +83,10 @@ ksp-plugin = { module = "com.google.devtools.ksp:com.google.devtools.ksp.gradle.
 orbit-core = { module = "org.orbit-mvi:orbit-core", version.ref = "orbit" }
 orbit-viewmodel = { module = "org.orbit-mvi:orbit-viewmodel", version.ref = "orbit" }
 orbit-compose = { module = "org.orbit-mvi:orbit-compose", version.ref = "orbit" }
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-junit" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
 
 [bundles]
 kotlin = [
