@@ -1,6 +1,5 @@
 package com.devkick.search_feature
 
-import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
@@ -10,24 +9,13 @@ import com.devkick.image.book.GetNewBooksUseCase
 import com.devkick.image.book.GetSearchBooksUseCase
 import com.devkick.model.BookList
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.cancel
-import kotlinx.coroutines.flow.cancellable
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.flow.debounce
-import kotlinx.coroutines.flow.onEmpty
 import kotlinx.coroutines.flow.onStart
-import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @OptIn(FlowPreview::class)
@@ -56,8 +44,7 @@ class BookSearchListViewModel @Inject constructor(
                 .consumeAsFlow()
                 .debounce(500)
                 .collect {
-                    page = 1
-                    searchBooks()
+                    searchBooks(isReset = true)
                 }
         }
     }
@@ -75,9 +62,7 @@ class BookSearchListViewModel @Inject constructor(
     }
 
     override suspend fun onSuspendEvent(event: BookSearchEvent) {
-        if (event is BookSearchEvent.RefreshList) {
-            refreshList()
-        }
+        if (event is BookSearchEvent.RefreshList) refreshList()
     }
 
     override fun onEvent(event: BookSearchEvent) {
@@ -120,9 +105,12 @@ class BookSearchListViewModel @Inject constructor(
             }
     }
 
-    private fun searchBooks() {
+    private fun searchBooks(isReset: Boolean = false) {
         viewModelScope.launch {
-            if (page == 1) isFinish = false
+            if (isReset) {
+                page = 1
+                isFinish = false
+            }
 
             if (isFinish) return@launch
 
