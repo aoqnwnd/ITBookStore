@@ -3,7 +3,6 @@ package com.devkick.detail_feature
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.devkick.common.ComposeViewModel
 import com.devkick.image.book.GetBookDetailUseCase
 import com.devkick.model.Book
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -1,7 +1,6 @@
 package com.devkick.search_feature
 
 import com.devkick.base.ListViewType
-import com.devkick.common.UIState
 import com.devkick.model.BookList
 
 data class BookSearchListUiState(
@@ -12,4 +11,4 @@ data class BookSearchListUiState(
     val isLoading: Boolean = true,
     val errorMessage: String? = null,
     val isEmpty: Boolean = false,
-) : UIState
+)

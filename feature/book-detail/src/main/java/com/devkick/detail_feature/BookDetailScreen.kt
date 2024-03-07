@@ -45,16 +45,14 @@ fun BookDetailScreen(
     navigateBack: () -> Boolean,
 ) {
     val bookUiState: BookDetailUiState by viewModel.bookUiState.collectAsStateWithLifecycle()
-    val bookEvent: BookDetailEvent by viewModel.eventFlow.collectAsStateWithLifecycle(
-        BookDetailEvent.Waiting
-    )
+    val bookEvent: BookDetailEvent? by viewModel.eventFlow.collectAsStateWithLifecycle(null)
     val uriHandler = LocalUriHandler.current
 
     LaunchedEffect(bookEvent) {
         when (val event = bookEvent) {
             BookDetailEvent.ClickBack -> navigateBack()
             is BookDetailEvent.ClickUrl -> uriHandler.openUri(event.url)
-            BookDetailEvent.Waiting -> {}
+            else -> {}
         }
     }
 
@@ -344,6 +342,7 @@ fun UI(
                         ) {
                             Text(
                                 text = stringResource(id = R.string.pdf),
+                                style = typography(textStyle = TextStyleEnum.Title),
                                 modifier = Modifier
                                     .padding(end = 10.dp)
                             )

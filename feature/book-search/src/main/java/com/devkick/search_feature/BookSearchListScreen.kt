@@ -35,6 +35,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
@@ -48,7 +49,6 @@ import com.devkick.base.PageableLazyVerticalGrid
 import com.devkick.base.TextStyleEnum
 import com.devkick.base.typography
 import com.itbookstore.resource.R
-import kotlin.reflect.KSuspendFunction1
 
 @Composable
 fun BookSearchListScreen(
@@ -71,7 +71,7 @@ fun UI(
     modifier: Modifier = Modifier,
     state: BookSearchListUiState,
     event: (BookSearchEvent) -> Unit,
-    suspendEvent: KSuspendFunction1<BookSearchEvent, Unit>,
+    suspendEvent: suspend (BookSearchEvent) -> Unit,
     navigateToDetail: (String) -> Unit,
 ) {
     val pullToRefreshState = rememberPullToRefreshState()
@@ -93,58 +93,10 @@ fun UI(
             .fillMaxSize()
             .padding(horizontal = 10.dp)
     ) {
-        Row(
-            modifier = Modifier
-                .height(50.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            BasicTextField(
-                modifier = modifier
-                    .align(Alignment.CenterVertically)
-                    .padding(horizontal = 4.dp, vertical = 5.dp)
-                    .clip(RoundedCornerShape(10.dp))
-                    .background(Color.LightGray)
-                    .weight(1f)
-                    .padding(5.dp),
-                value = state.queryText,
-                onValueChange = { changedText ->
-                    event(BookSearchEvent.QueryChange(changedText))
-                },
-                decorationBox = { innerTextField ->
-                    Box(
-                        contentAlignment = Alignment.CenterStart
-                    ) {
-                        if (state.queryText.isEmpty()) {
-                            Text(
-                                text = stringResource(id = R.string.placeholder),
-                                color = Color.Gray,
-                                style = typography(TextStyleEnum.Body),
-                                modifier = Modifier
-                                    .align(Alignment.CenterStart)
-                            )
-                        }
-
-                        innerTextField()
-                    }
-                },
-                singleLine = true,
-                textStyle = typography(TextStyleEnum.Title),
-                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
-                keyboardActions = KeyboardActions(onSearch = {
-                    if (state.queryText.isNotBlank())
-                        event(BookSearchEvent.QueryChange(state.queryText))
-                })
-            )
-
-            Image(
-                painter = painterResource(id = R.drawable.ic_list),
-                contentDescription = "change list type",
-                modifier = Modifier
-                    .padding(5.dp)
-                    .size(20.dp)
-                    .clickable { event(BookSearchEvent.ClickListTypeChange) }
-            )
-        }
+        SearchTextField(
+            searchQuery = state.queryText,
+            event = event
+        )
 
         val span = when (state.listViewType) {
             ListViewType.List -> 1
@@ -205,7 +157,6 @@ fun UI(
                     }
                 }
 
-
                 item(span = { GridItemSpan(span) }) {
                     if (state.isEmpty) {
                         Text(
@@ -225,5 +176,70 @@ fun UI(
                 state = pullToRefreshState,
             )
         }
+    }
+}
+
+@Composable
+fun SearchTextField(
+    modifier: Modifier = Modifier,
+    searchQuery: String,
+    event: (BookSearchEvent) -> Unit,
+) {
+    val keyboardController = LocalSoftwareKeyboardController.current
+
+    val onSearchTriggered = {
+        keyboardController?.hide()
+    }
+
+    Row(
+        modifier = Modifier
+            .height(50.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        BasicTextField(
+            modifier = modifier
+                .align(Alignment.CenterVertically)
+                .padding(horizontal = 4.dp, vertical = 5.dp)
+                .clip(RoundedCornerShape(10.dp))
+                .background(Color.LightGray)
+                .weight(1f)
+                .padding(5.dp),
+            value = searchQuery,
+            onValueChange = { changedText ->
+                event(BookSearchEvent.QueryChange(changedText))
+            },
+            decorationBox = { innerTextField ->
+                Box(
+                    contentAlignment = Alignment.CenterStart
+                ) {
+                    if (searchQuery.isEmpty()) {
+                        Text(
+                            text = stringResource(id = R.string.placeholder),
+                            color = Color.Gray,
+                            style = typography(TextStyleEnum.Body),
+                            modifier = Modifier
+                                .align(Alignment.CenterStart)
+                        )
+                    }
+
+                    innerTextField()
+                }
+            },
+            singleLine = true,
+            textStyle = typography(TextStyleEnum.Title),
+            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
+            keyboardActions = KeyboardActions(onSearch = { onSearchTriggered() })
+        )
+
+        Image(
+            painter = painterResource(id = R.drawable.ic_list),
+            contentDescription = "change list type",
+            modifier = Modifier
+                .padding(5.dp)
+                .size(20.dp)
+                .clickable {
+                    event(BookSearchEvent.QueryChange(searchQuery))
+                }
+        )
     }
 }
