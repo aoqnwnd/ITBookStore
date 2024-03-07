@@ -37,7 +37,6 @@ import com.devkick.base.BackdropBookImage
 import com.devkick.base.TextStyleEnum
 import com.devkick.base.typography
 import com.itbookstore.resource.R
-import kotlin.reflect.KFunction1
 
 @Composable
 fun BookDetailScreen(
@@ -52,8 +51,7 @@ fun BookDetailScreen(
     val uriHandler = LocalUriHandler.current
 
     LaunchedEffect(bookEvent) {
-        val event = bookEvent
-        when (event) {
+        when (val event = bookEvent) {
             BookDetailEvent.ClickBack -> navigateBack()
             is BookDetailEvent.ClickUrl -> uriHandler.openUri(event.url)
             BookDetailEvent.Waiting -> {}

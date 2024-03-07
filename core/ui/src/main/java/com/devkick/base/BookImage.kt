@@ -45,15 +45,6 @@ fun BoxScope.BackdropBookImage(
     else
         ContentScale.FillBounds
 
-    if (painter.state is AsyncImagePainter.State.Loading) {
-        CircularProgressIndicator(
-            modifier = modifier
-                .align(Alignment.Center)
-                .size(60.dp),
-            color = MaterialTheme.colorScheme.onBackground
-        )
-    }
-
     Image(
         modifier = modifier
             .aspectRatio(1f)
@@ -64,4 +55,14 @@ fun BoxScope.BackdropBookImage(
         contentScale = scale,
         contentDescription = "itemName",
     )
+
+    if (painter.state is AsyncImagePainter.State.Loading) {
+        CircularProgressIndicator(
+            modifier = Modifier
+                .size(50.dp)
+                .align(Alignment.Center),
+            strokeWidth = 7.dp,
+            color = MaterialTheme.colorScheme.onBackground
+        )
+    }
 }
