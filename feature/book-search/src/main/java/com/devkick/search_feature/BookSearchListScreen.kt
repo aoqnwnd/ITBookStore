@@ -129,7 +129,7 @@ fun UI(
                         modifier = Modifier
                             .animateItemPlacement(
                                 animationSpec = tween(
-                                    durationMillis = 250,
+                                    durationMillis = 500,
                                     easing = LinearOutSlowInEasing,
                                 )
                             )
@@ -238,7 +238,7 @@ fun SearchTextField(
                 .padding(5.dp)
                 .size(20.dp)
                 .clickable {
-                    event(BookSearchEvent.QueryChange(searchQuery))
+                    event(BookSearchEvent.ClickListTypeChange)
                 }
         )
     }
