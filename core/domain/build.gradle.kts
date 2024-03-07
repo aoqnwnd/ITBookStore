@@ -1,5 +1,5 @@
 plugins {
-    id("itbookstore.feature")
+    id("itbookstore.module")
 }
 
 android {
