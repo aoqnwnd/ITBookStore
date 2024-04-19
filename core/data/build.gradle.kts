@@ -1,5 +1,5 @@
 plugins {
-    id("itbookstore.feature")
+    id("itbookstore.module")
 }
 
 android {
@@ -8,6 +8,5 @@ android {
 
 dependencies {
     implementation(libs.bundles.retrofit)
-    implementation(projects.core.network)
     implementation(projects.core.model)
 }
